@@ -1,0 +1,67 @@
+﻿Sure, I can help you style your table. Here's an example of how you can add some CSS to make it look more appealing:
+
+@{
+    ViewData["Title"] = "All Reservations";
+}
+@model IEnumerable<Reservation>
+
+<h1 class="display-4">Reservation</h1>
+<a asp-action="AddReservation" class="btn btn-sm btn-primary">Book Ticket</a>
+<a asp-action="GetReservation" class="btn btn-sm btn-primary">Get Reservation</a>
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Start Location</th>
+            <th>End Location</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Id</td>
+                <td>@r.Name</td>
+                <td>@r.StartLocation</td>
+                <td>@r.EndLocation</td>
+                <td><a asp-action="UpdateReservation" asp-route-id="@r.Id" class="btn btn-warning">Update</a></td>
+                <td>
+                    <form asp-action="DeleteReservation" method="post">
+                        <input type="hidden" value="@r.Id" name="Reservation" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    }
+
+    .table th, .table td {
+    padding: 10px;
+    text-align: left;
+    }
+
+    .table thead {
+    background-color: #343a40;
+    color: white;
+    }
+
+    .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+    }
+
+    .btn {
+    margin-right: 5px;
+    }
+</style>
+
